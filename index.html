@@ -191,7 +191,7 @@
                     <span class="text-primary text-xs">02.</span> ./projects
                 </button>
                 <button onclick="navigate('courses')" class="nav-btn cyber-hover px-5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs sm:text-sm font-mono text-slate-300 flex items-center gap-2">
-                    <span class="text-primary text-xs">03.</span> ./courses
+                    <span class="text-primary text-xs">03.</span> ./certificates
                 </button>
                 <button onclick="navigate('about')" class="nav-btn cyber-hover px-5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs sm:text-sm font-mono text-slate-300 flex items-center gap-2">
                     <span class="text-primary text-xs">04.</span> ./about_me
@@ -220,7 +220,7 @@
                 <span>./projects</span> <span class="text-xs text-slate-500">9 Repos</span>
             </button>
             <button onclick="navigate('courses'); toggleMobileMenu()" class="block w-full text-left p-3 text-primary hover:bg-slate-900 rounded-lg flex items-center justify-between">
-                <span>./courses</span> <span class="text-xs text-slate-500">Logs</span>
+                <span>./certificates</span> <span class="text-xs text-slate-500">6 Verified</span>
             </button>
             <button onclick="navigate('about'); toggleMobileMenu()" class="block w-full text-left p-3 text-primary hover:bg-slate-900 rounded-lg flex items-center justify-between">
                 <span>./about_me</span> <span class="text-xs text-slate-500">Profile</span>
@@ -360,8 +360,11 @@
                                 <h3 class="font-mono text-xs text-slate-400 uppercase tracking-widest">Verified Credential</h3>
                                 <span class="text-[10px] font-mono text-primary bg-primary/10 px-2 py-0.5 rounded border border-primary/30">Authenticated</span>
                             </div>
-                            <div class="cert-frame bg-slate-950">
-                                <img id="sd-certificate" src="" alt="Certificate" class="cert-image" onerror="handleCertError(this)">
+                            <div class="cert-frame bg-slate-950 cursor-pointer group relative" onclick="openCertModal(document.getElementById('sd-certificate').src, document.getElementById('sd-title').innerText)">
+                                <img id="sd-certificate" src="" alt="Certificate" class="cert-image group-hover:scale-[1.02] transition-transform duration-300" onerror="handleCertError(this)">
+                                <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity z-20 pointer-events-none rounded-lg">
+                                    <span class="px-3 py-1.5 rounded-lg bg-primary text-dark font-mono text-xs font-bold shadow-lg">&#128269; Click to Inspect</span>
+                                </div>
                                 <div id="sd-cert-fallback" class="hidden p-8 text-center bg-slate-950 text-slate-500 font-mono text-xs">
                                     [ Verified Accreditation Record Logged ]
                                 </div>
@@ -429,21 +432,45 @@
             </div>
         </section>
 
-        <!-- VIEW: COURSES -->
+        <!-- VIEW: COURSES & CERTIFICATES -->
         <section id="view-courses" class="view-section">
             <div class="mb-12">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-secondary/10 border border-secondary/30 text-secondary font-mono text-xs mb-3">
                     <span>STATUS: ACTIVE_VERIFICATION</span>
                 </div>
-                <h2 class="text-3xl font-mono font-bold text-white mb-2"><span class="text-secondary">./</span>Training_Logs & Accreditations</h2>
-                <p class="text-sm text-slate-400 font-light">Verified training pathways and certifications in network defense, cybersecurity, and system architecture.</p>
+                <h2 class="text-3xl sm:text-4xl font-mono font-bold text-white mb-2"><span class="text-secondary">./</span>Training_Logs & Verified_Credentials</h2>
+                <p class="text-sm text-slate-400 font-light max-w-2xl">Verified accreditations, professional course logs, and authenticated credential documentation with interactive previews.</p>
                 <div class="h-1 w-20 bg-secondary mt-4"></div>
             </div>
 
-            <div class="bg-panel border border-slate-800 rounded-2xl overflow-hidden shadow-xl relative">
-                <ul id="courses-list" class="divide-y divide-slate-800/60">
+            <!-- Visual Certificate Documents Archive -->
+            <div class="mb-16">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-2 border-b border-slate-800/80">
+                    <h3 class="text-xl font-mono font-bold text-white flex items-center gap-2">
+                        <span class="text-primary">&gt;</span> Verified Certificate Archive (06)
+                    </h3>
+                    <span class="text-xs font-mono text-slate-500">Click certificate image to inspect in full resolution</span>
+                </div>
+                
+                <div id="certificates-gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                     <!-- Injected via JS -->
-                </ul>
+                </div>
+            </div>
+
+            <!-- Academic & Training Logs -->
+            <div>
+                <div class="flex items-center justify-between mb-6 pb-2 border-b border-slate-800/80">
+                    <h3 class="text-xl font-mono font-bold text-white flex items-center gap-2">
+                        <span class="text-secondary">&gt;</span> Academic & Institutional Training Records
+                    </h3>
+                    <span class="text-xs font-mono text-slate-500">Curriculum Logs</span>
+                </div>
+
+                <div class="bg-panel border border-slate-800 rounded-2xl overflow-hidden shadow-xl relative">
+                    <ul id="courses-list" class="divide-y divide-slate-800/60">
+                        <!-- Injected via JS -->
+                    </ul>
+                </div>
             </div>
         </section>
 
@@ -567,6 +594,34 @@
         </div>
     </footer>
 
+    <!-- Interactive Certificate Lightbox Modal -->
+    <div id="cert-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 sm:p-6" onclick="closeCertModal()">
+        <div class="relative max-w-4xl w-full bg-panel border border-slate-700 rounded-2xl p-5 sm:p-6 overflow-hidden flex flex-col shadow-2xl" onclick="event.stopPropagation()">
+            <div class="w-full flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-secondary"></span>
+                    <h3 id="modal-cert-title" class="font-mono text-sm sm:text-base font-bold text-white truncate">Certificate Preview</h3>
+                </div>
+                <button onclick="closeCertModal()" class="text-slate-400 hover:text-white font-mono text-xs px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 transition-colors">
+                    &times; Close (Esc)
+                </button>
+            </div>
+            
+            <div class="overflow-auto max-h-[70vh] flex items-center justify-center bg-slate-950 p-2 sm:p-4 rounded-xl border border-slate-800/80">
+                <img id="modal-cert-img" src="" alt="Certificate Full Preview" class="max-w-full max-h-[60vh] object-contain rounded-lg shadow-2xl">
+            </div>
+            
+            <div class="w-full pt-4 border-t border-slate-800 mt-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono">
+                <span class="text-slate-500 flex items-center gap-1.5">
+                    <span class="text-primary">&#10003;</span> AUTHENTICATED SYSTEM CREDENTIAL
+                </span>
+                <a id="modal-cert-link" href="" target="_blank" rel="noopener noreferrer" class="px-4 py-1.5 rounded-lg bg-primary/10 border border-primary/30 text-primary hover:bg-primary hover:text-dark font-bold transition-all">
+                    Open Source Document &rarr;
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Application Logic -->
     <script>
         // Set premium chart defaults
@@ -631,6 +686,70 @@
                 color: "#f87171" // Red
             }
         };
+
+        // Complete verified dataset of all 6 accredited certificate credentials
+        const certificatesData = [
+            {
+                id: "cert-python",
+                title: "Python for Cybersecurity & Tool Development",
+                module: "Python Systems",
+                provider: "Security Institute",
+                image: "certificate2-placeholder.jpg",
+                doc: "certificate2-placeholder.jpg",
+                status: "Verified",
+                color: "#22d3ee"
+            },
+            {
+                id: "cert-networking",
+                title: "Advanced Network Architecture & Protocols",
+                module: "Network Telemetry",
+                provider: "Cisco Networking Academy",
+                image: "certificate3-placeholder.png",
+                doc: "certificate3-placeholder.pdf",
+                status: "Active",
+                color: "#34d399"
+            },
+            {
+                id: "cert-linux",
+                title: "Linux System Administration & Netfilter",
+                module: "Linux Ops",
+                provider: "Open Source Unix Lab",
+                image: "certificate6-placeholder.png",
+                doc: "certificate6-placeholder.pdf",
+                status: "Verified",
+                color: "#fb923c"
+            },
+            {
+                id: "cert-web",
+                title: "Modern Web Architecture & UI/UX Systems",
+                module: "UI/UX & Web",
+                provider: "Dev Bootcamp",
+                image: "certificate1-placeholder.jpg",
+                doc: "certificate1-placeholder.jpg",
+                status: "Verified",
+                color: "#c084fc"
+            },
+            {
+                id: "cert-javascript",
+                title: "JavaScript Dynamics & Real-Time SSE",
+                module: "JavaScript",
+                provider: "Security & Dev Lab",
+                image: "certificate4-placeholder.png",
+                doc: "certificate4-placeholder.pdf",
+                status: "Verified",
+                color: "#facc15"
+            },
+            {
+                id: "cert-cpp",
+                title: "C++ Low-Level Systems & Memory Analysis",
+                module: "C++ Systems",
+                provider: "Systems Lab",
+                image: "certificate5-placeholder.png",
+                doc: "certificate5-placeholder.pdf",
+                status: "Active",
+                color: "#f87171"
+            }
+        ];
 
         // Complete verified dataset of all developed GitHub repositories
         const projectsData = [
@@ -761,12 +880,13 @@
             initTypewriter();
             renderSkillsGrid();
             renderProjects('all');
+            renderCertificatesGallery();
             renderCourses();
             
             // Check hash in URL on initial load
             const initialHash = window.location.hash.replace('#', '');
-            if (initialHash && ['home', 'projects', 'courses', 'about'].includes(initialHash)) {
-                navigate(initialHash, false);
+            if (initialHash && ['home', 'projects', 'courses', 'certificates', 'about'].includes(initialHash)) {
+                navigate(initialHash === 'certificates' ? 'courses' : initialHash, false);
             } else if (initialHash && skillsData[initialHash]) {
                 openSkillDetail(initialHash);
             } else {
@@ -780,6 +900,11 @@
                 } else {
                     navigate('home', false);
                 }
+            });
+
+            // Keyboard navigation for modal
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeCertModal();
             });
         });
 
@@ -811,6 +936,9 @@
 
         // --- NAVIGATION LOGIC ---
         function navigate(viewId, pushHistory = true) {
+            // Alias handling
+            const targetId = (viewId === 'certificates') ? 'courses' : viewId;
+
             // Hide current views
             const views = document.querySelectorAll('.view-section');
             views.forEach(view => {
@@ -825,20 +953,23 @@
             });
 
             // Highlight active menu button
-            const activeBtn = Array.from(navBtns).find(btn => btn.innerText.toLowerCase().includes(viewId.split('-')[0]));
+            const activeBtn = Array.from(navBtns).find(btn => {
+                const text = btn.innerText.toLowerCase();
+                return text.includes(targetId) || (targetId === 'courses' && text.includes('cert'));
+            });
             if (activeBtn) {
                 activeBtn.classList.remove('bg-slate-900', 'text-slate-300', 'border-slate-800');
                 activeBtn.classList.add('bg-primary/15', 'text-primary', 'border-primary/50');
             }
 
             // Show target
-            const targetView = document.getElementById(`view-${viewId}`);
+            const targetView = document.getElementById(`view-${targetId}`);
             if (targetView) {
                 targetView.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 
-                if (pushHistory && viewId !== 'skill-detail') {
-                    history.pushState({view: viewId}, '', `#${viewId}`);
+                if (pushHistory && targetId !== 'skill-detail') {
+                    history.pushState({view: targetId}, '', `#${targetId}`);
                 }
             }
         }
@@ -985,6 +1116,53 @@
             });
         }
 
+        function renderCertificatesGallery() {
+            const gallery = document.getElementById('certificates-gallery');
+            if (!gallery) return;
+            gallery.innerHTML = '';
+
+            certificatesData.forEach(cert => {
+                const card = document.createElement('div');
+                card.className = "cyber-hover bg-panel border border-slate-800 rounded-2xl p-5 sm:p-6 flex flex-col justify-between h-full relative group overflow-hidden";
+                
+                card.innerHTML = `
+                    <div class="absolute top-0 left-0 w-full h-1 bg-slate-800 group-hover:bg-[${cert.color}] transition-colors duration-300"></div>
+                    
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-950 border border-slate-800 text-slate-400">
+                                ${cert.module}
+                            </span>
+                            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded ${cert.status === 'Verified' ? 'bg-secondary/10 text-secondary border border-secondary/30' : 'bg-primary/10 text-primary border border-primary/30'}">
+                                ${cert.status}
+                            </span>
+                        </div>
+                        
+                        <h4 class="text-base font-mono font-bold text-white mb-1 group-hover:text-[${cert.color}] transition-colors">${cert.title}</h4>
+                        <p class="text-xs font-mono text-slate-500 mb-4">${cert.provider}</p>
+                        
+                        <!-- Certificate Preview Frame -->
+                        <div class="cert-frame bg-slate-950 cursor-pointer overflow-hidden rounded-xl border border-slate-800 group-hover:border-primary/50 transition-colors relative" onclick="openCertModal('${cert.image}', '${cert.title}', '${cert.doc}')">
+                            <img src="${cert.image}" alt="${cert.title}" class="w-full h-48 sm:h-52 object-contain bg-slate-950 rounded-lg group-hover:scale-105 transition-transform duration-300" loading="lazy">
+                            <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                                <span class="px-3 py-1.5 rounded-lg bg-primary text-dark font-mono text-xs font-bold shadow-lg">&#128269; Inspect High-Res &rarr;</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
+                        <button onclick="openCertModal('${cert.image}', '${cert.title}', '${cert.doc}')" class="text-primary hover:text-white transition-colors flex items-center gap-1.5 font-bold">
+                            <span>&#128269; Zoom Preview</span>
+                        </button>
+                        <a href="${cert.doc}" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-secondary transition-colors flex items-center gap-1">
+                            <span>Raw Document &rarr;</span>
+                        </a>
+                    </div>
+                `;
+                gallery.appendChild(card);
+            });
+        }
+
         function renderCourses() {
             const list = document.getElementById('courses-list');
             if (!list) return;
@@ -1011,6 +1189,31 @@
                 `;
                 list.appendChild(li);
             });
+        }
+
+        // --- CERTIFICATE LIGHTBOX MODAL ---
+
+        function openCertModal(imageSrc, title, docUrl = null) {
+            const modal = document.getElementById('cert-modal');
+            const modalImg = document.getElementById('modal-cert-img');
+            const modalTitle = document.getElementById('modal-cert-title');
+            const modalLink = document.getElementById('modal-cert-link');
+            
+            if (!modal || !modalImg) return;
+            
+            modalImg.src = imageSrc;
+            if (modalTitle) modalTitle.innerText = title || "Certificate Preview";
+            if (modalLink) modalLink.href = docUrl || imageSrc;
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCertModal() {
+            const modal = document.getElementById('cert-modal');
+            if (!modal) return;
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
         }
 
         // --- ANALYTICS CHARTING ---
