@@ -420,9 +420,7 @@
                     <button onclick="filterProjects('tools')" class="filter-btn cyber-hover px-4 py-1.5 rounded-lg border border-slate-800 bg-slate-900 text-xs font-mono text-slate-400">
                         [ SECURITY TOOLS ]
                     </button>
-                    <button onclick="filterProjects('web')" class="filter-btn cyber-hover px-4 py-1.5 rounded-lg border border-slate-800 bg-slate-900 text-xs font-mono text-slate-400">
-                        [ WEB & UI ]
-                    </button>
+
                 </div>
             </div>
             
@@ -772,10 +770,22 @@
                 isFlagship: true,
                 badge: "FLAGSHIP WAF",
                 badgeColor: "bg-primary/15 text-primary border-primary/30",
-                desc: "Production-grade, self-hosted Web Application Firewall and reverse proxy. Implements a 30-rule OWASP Core Rule Set (CRS)-aligned detection engine defending against SQLi, XSS, Unix/Windows RCE, Log4Shell (CVE-2021-44228), Path Traversal, SSRF, XXE, SSTI, and scanner bots. Includes a real-time security dashboard with live telemetry and dynamic rule toggles.", 
-                tech: ["Python 3.13", "OWASP CRS", "Reverse Proxy", "FastAPI", "Docker", "Pytest"],
+                desc: "High-performance, standalone Web Application Firewall and reverse proxy engine. Implements 100+ OWASP CRS-aligned detection rules with fine-grained category controls defending against SQLi, XSS, RCE, Log4Shell (CVE-2021-44228), Path Traversal, SSRF, XXE, SSTI, and scanner bots. Includes a real-time telemetry security dashboard and multi-domain routing.", 
+                tech: ["Python 3.13", "OWASP CRS", "Reverse Proxy", "100+ Rules", "Docker", "Pytest"],
                 link: "https://github.com/addisabrham36-boop/bastion",
-                highlight: "30 OWASP Rules // Reverse Proxy"
+                highlight: "100+ OWASP Rules // Reverse Proxy"
+            },
+            { 
+                id: "vectra",
+                title: "VECTRA — CVE & GTFOBins Engine", 
+                category: "tools",
+                isFlagship: true,
+                badge: "INTEL ENGINE",
+                badgeColor: "bg-accent/15 text-accent border-accent/30",
+                desc: "High-performance offline CVE & GTFOBins intelligence search engine. Blazing-fast local vulnerability lookup powered by SQLite FTS5 full-text search — no internet required. Search CVEs by ID, keyword, CVSS score, and year, or enumerate GTFOBins privilege escalation techniques by binary name. Built for CTF recon and pentesting workflows.", 
+                tech: ["Python", "SQLite FTS5", "CVE Database", "GTFOBins", "Offline CLI", "Red Team"],
+                link: "https://github.com/addisabrham36-boop/vectra",
+                highlight: "Offline CVE Search // GTFOBins Intel"
             },
             { 
                 id: "port-scanner",
@@ -795,7 +805,7 @@
                 category: "tools",
                 isFlagship: false,
                 badge: "IAM & SECURITY",
-                badgeColor: "bg-accent/10 text-accent border-accent/20",
+                badgeColor: "bg-yellow-400/10 text-yellow-400 border-yellow-400/20",
                 desc: "Interactive security evaluation tool computing password entropy and verifying character set diversity, dictionary vulnerabilities, and complexity constraints to provide actionable hardening feedback.", 
                 tech: ["Python", "Entropy Math", "Pattern Analysis", "Security Hardening"],
                 link: "https://github.com/addisabrham36-boop/password-checker",
@@ -831,7 +841,7 @@
                 category: "tools",
                 isFlagship: false,
                 badge: "SECURITY LAB",
-                badgeColor: "bg-danger/10 text-danger border-danger/20",
+                badgeColor: "bg-red-500/10 text-red-400 border-red-500/20",
                 desc: "Laboratory security tool demonstrating automated 4-digit PIN and credential space enumeration (0000–9999). Used to audit authentication endpoints, verify rate-limiting efficacy, and assess lockout trigger boundaries.", 
                 tech: ["Python", "Security Audit", "Algorithm Testing", "Lab Evaluation"],
                 link: "https://github.com/addisabrham36-boop/password-brute-force-",
@@ -848,18 +858,6 @@
                 tech: ["Markdown", "OWASP Top 10", "TryHackMe", "IAAA Analysis"],
                 link: "https://github.com/addisabrham36-boop/writeups",
                 highlight: "OWASP Top 10 // TryHackMe Walkthroughs"
-            },
-            { 
-                id: "coffee-web",
-                title: "Coffee Experience Platform", 
-                category: "web",
-                isFlagship: false,
-                badge: "WEB APPLICATION",
-                badgeColor: "bg-purple-400/10 text-purple-400 border-purple-400/20",
-                desc: "Responsive multi-page web platform showcasing clean semantic HTML5, custom CSS3, and fluid layouts. Engineered for optimal performance, mobile responsiveness, and intuitive navigation flows.", 
-                tech: ["Semantic HTML5", "CSS3", "Responsive Design", "UI/UX Flow"],
-                link: "https://github.com/addisabrham36-boop/coffee-website",
-                highlight: "Multi-Page Layout // Semantic DOM"
             }
         ];
 
